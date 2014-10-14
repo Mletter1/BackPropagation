@@ -13,33 +13,33 @@ import java.util.Scanner;
 public class BackPropNetwork
 {
 
-    private static final int INPUT_NEURONS = 2;
-    private static final int HIDDEN_NEURONS = 2;
-    private static final int OUTPUT_NEURONS = 4;
+    private final int INPUT_NEURONS = 2;
+    private final int HIDDEN_NEURONS = 2;
+    private final int OUTPUT_NEURONS = 4;
 
-    private static final double LEARN_RATE = 0.02;    // Rho.
-    private static final double NOISE_FACTOR = 0.2;
-    private static final int TRAINING_REPS = 1000;
+    private final double LEARN_RATE = 0.02;    // Rho.
+    private final double NOISE_FACTOR = 0.2;
+    private final int TRAINING_REPS = 100;
 
     // Input to Hidden Weights (with Biases).
-    private static double wih[][] = new double[INPUT_NEURONS + 1][HIDDEN_NEURONS];
+    private double wih[][] = new double[INPUT_NEURONS + 1][HIDDEN_NEURONS];
 
     // Hidden to Output Weights (with Biases).
-    private static double who[][] = new double[HIDDEN_NEURONS + 1][OUTPUT_NEURONS];
+    private double who[][] = new double[HIDDEN_NEURONS + 1][OUTPUT_NEURONS];
 
     // Activations.
-    private static double inputs[] = new double[INPUT_NEURONS];
-    private static double hidden[] = new double[HIDDEN_NEURONS];
-    private static double target[] = new double[OUTPUT_NEURONS];
-    private static double actual[] = new double[OUTPUT_NEURONS];
+    private double inputs[] = new double[INPUT_NEURONS];
+    private double hidden[] = new double[HIDDEN_NEURONS];
+    private double target[] = new double[OUTPUT_NEURONS];
+    private double actual[] = new double[OUTPUT_NEURONS];
 
     // Unit errors.
-    private static double erro[] = new double[OUTPUT_NEURONS];
-    private static double errh[] = new double[HIDDEN_NEURONS];
+    private double erro[] = new double[OUTPUT_NEURONS];
+    private double errh[] = new double[HIDDEN_NEURONS];
 
-    private static final int MAX_SAMPLES = 800;
+    private final int MAX_SAMPLES = 800;
 
-    private static int trainInputs[][] = new int[][] {{1, 1, 1, 0},
+    private int trainInputs[][] = new int[][] {{1, 1, 1, 0},
             {1, 1, 0, 0},
             {0, 1, 1, 0},
             {1, 0, 1, 0},
@@ -54,7 +54,7 @@ public class BackPropNetwork
             {0, 1, 0, 1},
             {0, 0, 1, 1}};
 
-    private static int trainOutput[][] = new int[][]
+    private int trainOutput[][] = new int[][]
                    {{1, 0, 0, 0},
                     {0, 1, 0, 0},
                     {0, 0, 1, 0},
@@ -65,7 +65,7 @@ public class BackPropNetwork
      * @param f file
      * @return ArrayList of Sample
      */
-    public static ArrayList<Sample> parseFile(File f){
+    public ArrayList<Sample> parseFile(File f){
         Scanner scanner;
         String[] sA;
         String s;
@@ -97,13 +97,36 @@ public class BackPropNetwork
         return samples;
     }
 
-
-    private static void NeuralNetwork()
+    private void printMinMaxOfData(ArrayList<Sample> samples){
+        double max = 0;
+        double min = 0;
+        for(Sample s : samples){
+            if(s.X1>max){
+                max = s.X1;
+            }
+            if(s.X1<min){
+                min = s.X1;
+            }
+            if(s.X2>max){
+                max = s.X2;
+            }
+            if(s.X2<min){
+                min = s.X2;
+            }
+        }
+        System.out.println("min:"+min+" max:"+max);
+    }
+    private void NeuralNetwork()
     {
         int sample = 0;
         //class 1
         File f1 = new File("/Users/matthewletter/Documents/BackPropagation/data/TrainingData.txt");
         ArrayList<Sample> samples = parseFile(f1);
+        printMinMaxOfData(samples);
+
+        File f2 = new File("/Users/matthewletter/Documents/BackPropagation/data/TestingData.txt");
+        ArrayList<Sample> test = parseFile(f2);
+        printMinMaxOfData(test);
 
         assignRandomWeights();
         System.out.println("\nbefore training");
@@ -114,35 +137,24 @@ public class BackPropNetwork
         // Train the network.
         for(int epoch = 0; epoch < TRAINING_REPS; epoch++)
         {
-//            sample += 1;
-//            if(sample == MAX_SAMPLES){
-//                sample = 0;
-//            }
             Collections.shuffle(samples);
             for(Sample s : samples) {
-
-//                for (int i = 0; i < INPUT_NEURONS; i++) {
-//                    inputs[i] = trainInputs[sample][i];
-//                } // i
                 inputs[0] = s.X1;
                 inputs[1] = s.X2;
                 sample = s.expectedClass;
                 for (int i = 0; i < OUTPUT_NEURONS; i++) {
                     //System.out.println(sample + " : " + i);
                     target[i] = trainOutput[sample][i];
-                } // i
-
+                }
                 feedForward();
                 backPropagate();
             }
-
         } // epoch
-
-        System.out.println("\nafter training");
-        getTrainingStats(samples);
 
         System.out.println("\nfinished testing "+TRAINING_REPS+ " epochs in "+((System.currentTimeMillis() - time)
                 /1000)+" seconds");
+        System.out.println("\nafter training");
+        System.out.println("Network test error is " + getTrainingStats(test) + "% correct.");
 
         //System.out.println("\nTest network against original input:");
         //testNetworkTraining(samples);
@@ -153,7 +165,7 @@ public class BackPropNetwork
         return;
     }
 
-    private static void getTrainingStats(ArrayList<Sample> samples)
+    private double getTrainingStats(ArrayList<Sample> samples)
     {
         double sum = 0.0;
         for(Sample s : samples)
@@ -182,12 +194,10 @@ public class BackPropNetwork
             }
         } // i
 
-        System.out.println("Network is " + ((double)sum / (double)MAX_SAMPLES * 100.0) + "% correct.");
-
-        return;
+        return ((double)sum / (double)MAX_SAMPLES * 100.0);
     }
 
-    private static void testNetworkTraining(ArrayList<Sample> samples)
+    private void testNetworkTraining(ArrayList<Sample> samples)
     {
         // This function simply tests the training vectors against network.
         for(Sample s : samples)
@@ -212,7 +222,7 @@ public class BackPropNetwork
         return;
     }
 
-    private static void testNetworkWithNoise1()
+    private void testNetworkWithNoise1()
     {
         // This function adds a random fractional value to all the training
         // inputs greater than zero.
@@ -237,23 +247,28 @@ public class BackPropNetwork
         return;
     }
 
-    private static int maximum(final double[] vector)
+    /**
+     * as decribed in class, take the max output
+     * @param outputVector
+     * @return
+     */
+    private int maximum(double[] outputVector)
     {
-        // This function returns the index of the maximum of vector().
-        int sel = 0;
-        double max = vector[sel];
+        // This function returns the maxIndex of the maximum of outputVector().
+        int maxIndex = 0;
+        double max = outputVector[maxIndex];
 
-        for(int index = 0; index < OUTPUT_NEURONS; index++)
+        for(int i = 0; i < OUTPUT_NEURONS; i++)
         {
-            if(vector[index] > max){
-                max = vector[index];
-                sel = index;
+            if(outputVector[i] > max){
+                max = outputVector[i];
+                maxIndex = i;
             }
         }
-        return sel;
+        return maxIndex;
     }
 
-    private static void feedForward()
+    private void feedForward()
     {
         double sum = 0.0;
 
@@ -285,7 +300,7 @@ public class BackPropNetwork
         return;
     }
 
-    private static void backPropagate()
+    private void backPropagate()
     {
         // Calculate the output layer error (step 3 for output cell).
         for(int out = 0; out < OUTPUT_NEURONS; out++)
@@ -326,7 +341,7 @@ public class BackPropNetwork
         return;
     }
 
-    private static void assignRandomWeights()
+    private void assignRandomWeights()
     {
         for(int inp = 0; inp <= INPUT_NEURONS; inp++) // Do not subtract 1 here.
         {
@@ -351,20 +366,21 @@ public class BackPropNetwork
         return;
     }
 
-    private static double sigmoid(final double val)
+    private double sigmoid(double outputSum)
     {
-        return (1.0 / (1.0 + Math.exp(-val)));
+        return (1.0 / (1.0 + Math.exp(-outputSum)));
     }
 
-    private static double sigmoidDerivative(final double val)
+    private double sigmoidDerivative(double val)
     {
         return (val * (1.0 - val));
     }
 
+    public void run(){NeuralNetwork();}
+
     public static void main(String[] args)
     {
-        NeuralNetwork();
-        return;
+        new BackPropNetwork().run();
     }
 
 }
