@@ -2,19 +2,24 @@
  * Created by matthewletter on 10/7/14.
  */
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.text.DecimalFormat;
+import java.util.Scanner;
 
-public class Network
+public class BackPropNetwork
 {
-    //Example_4x6x16
-    private static final int INPUT_NEURONS = 4;
-    private static final int HIDDEN_NEURONS = 6;
-    private static final int OUTPUT_NEURONS = 14;
 
-    private static final double LEARN_RATE = 0.2;    // Rho.
-    private static final double NOISE_FACTOR = 0.45;
-    private static final int TRAINING_REPS = 10000;
+    private static final int INPUT_NEURONS = 2;
+    private static final int HIDDEN_NEURONS = 2;
+    private static final int OUTPUT_NEURONS = 4;
+
+    private static final double LEARN_RATE = 0.02;    // Rho.
+    private static final double NOISE_FACTOR = 0.2;
+    private static final int TRAINING_REPS = 1000;
 
     // Input to Hidden Weights (with Biases).
     private static double wih[][] = new double[INPUT_NEURONS + 1][HIDDEN_NEURONS];
@@ -32,7 +37,7 @@ public class Network
     private static double erro[] = new double[OUTPUT_NEURONS];
     private static double errh[] = new double[HIDDEN_NEURONS];
 
-    private static final int MAX_SAMPLES = 14;
+    private static final int MAX_SAMPLES = 800;
 
     private static int trainInputs[][] = new int[][] {{1, 1, 1, 0},
             {1, 1, 0, 0},
@@ -50,75 +55,120 @@ public class Network
             {0, 0, 1, 1}};
 
     private static int trainOutput[][] = new int[][]
-            {{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                    {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}};
+                   {{1, 0, 0, 0},
+                    {0, 1, 0, 0},
+                    {0, 0, 1, 0},
+                    {0, 0, 0, 1}};
+
+    /**
+     * used to parse the provided text files
+     * @param f file
+     * @return ArrayList of Sample
+     */
+    public static ArrayList<Sample> parseFile(File f){
+        Scanner scanner;
+        String[] sA;
+        String s;
+        ArrayList<Sample> samples = new ArrayList<Sample>();
+        try {
+            scanner = new Scanner(f);
+            s = scanner.nextLine();
+            s = s.replaceAll("\\s+"," ");
+            //System.out.println(s);
+
+            while(scanner.hasNext()){
+                s = s.replaceAll("\\s+"," ");
+                sA = s.split(" ");
+
+                if(sA.length==4) {
+                    samples.add(new Sample(Integer.parseInt(sA[0])-1,
+                            Integer.parseInt(sA[0]), Double.parseDouble(sA[2]),
+                            Double.parseDouble(sA[3])));
+                }
+
+                s = scanner.nextLine();
+
+            }
+            scanner.close();
+
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+        return samples;
+    }
+
 
     private static void NeuralNetwork()
     {
         int sample = 0;
+        //class 1
+        File f1 = new File("/Users/matthewletter/Documents/BackPropagation/data/TrainingData.txt");
+        ArrayList<Sample> samples = parseFile(f1);
 
         assignRandomWeights();
+        System.out.println("\nbefore training");
+        getTrainingStats(samples);
+
+        double time = System.currentTimeMillis();
 
         // Train the network.
         for(int epoch = 0; epoch < TRAINING_REPS; epoch++)
         {
-            sample += 1;
-            if(sample == MAX_SAMPLES){
-                sample = 0;
+//            sample += 1;
+//            if(sample == MAX_SAMPLES){
+//                sample = 0;
+//            }
+            Collections.shuffle(samples);
+            for(Sample s : samples) {
+
+//                for (int i = 0; i < INPUT_NEURONS; i++) {
+//                    inputs[i] = trainInputs[sample][i];
+//                } // i
+                inputs[0] = s.X1;
+                inputs[1] = s.X2;
+                sample = s.expectedClass;
+                for (int i = 0; i < OUTPUT_NEURONS; i++) {
+                    //System.out.println(sample + " : " + i);
+                    target[i] = trainOutput[sample][i];
+                } // i
+
+                feedForward();
+                backPropagate();
             }
-
-            for(int i = 0; i < INPUT_NEURONS; i++)
-            {
-                inputs[i] = trainInputs[sample][i];
-            } // i
-
-            for(int i = 0; i < OUTPUT_NEURONS; i++)
-            {
-                target[i] = trainOutput[sample][i];
-            } // i
-
-            feedForward();
-
-            backPropagate();
 
         } // epoch
 
-        getTrainingStats();
+        System.out.println("\nafter training");
+        getTrainingStats(samples);
 
-        System.out.println("\nTest network against original input:");
-        testNetworkTraining();
+        System.out.println("\nfinished testing "+TRAINING_REPS+ " epochs in "+((System.currentTimeMillis() - time)
+                /1000)+" seconds");
 
-        System.out.println("\nTest network against noisy input:");
-        testNetworkWithNoise1();
+        //System.out.println("\nTest network against original input:");
+        //testNetworkTraining(samples);
+
+        //System.out.println("\nTest network against noisy input:");
+        //testNetworkWithNoise1();
 
         return;
     }
 
-    private static void getTrainingStats()
+    private static void getTrainingStats(ArrayList<Sample> samples)
     {
         double sum = 0.0;
-        for(int i = 0; i < MAX_SAMPLES; i++)
+        for(Sample s : samples)
         {
-            for(int j = 0; j < INPUT_NEURONS; j++)
-            {
-                inputs[j] = trainInputs[i][j];
-            } // j
+//            for(int j = 0; j < INPUT_NEURONS; j++)
+//            {
+//                inputs[j] = trainInputs[i][j];
+//            } // j
+            inputs[0] = s.X1;
+            inputs[1] = s.X2;
+            int sample = s.expectedClass;
 
             for(int j = 0; j < OUTPUT_NEURONS; j++)
             {
-                target[j] = trainOutput[i][j];
+                target[j] = trainOutput[sample][j];
             } // j
 
             feedForward();
@@ -126,8 +176,9 @@ public class Network
             if(maximum(actual) == maximum(target)){
                 sum += 1;
             }else{
-                System.out.println(inputs[0] + "\t" + inputs[1] + "\t" + inputs[2] + "\t" + inputs[3]);
-                System.out.println(maximum(actual) + "\t" + maximum(target));
+//                System.out.println(inputs[0] + "\t" + inputs[1]);
+//                System.out.println("actual: " + maximum(actual) + "\ttarget: " + maximum(target));
+//                System.out.println();
             }
         } // i
 
@@ -136,15 +187,17 @@ public class Network
         return;
     }
 
-    private static void testNetworkTraining()
+    private static void testNetworkTraining(ArrayList<Sample> samples)
     {
         // This function simply tests the training vectors against network.
-        for(int i = 0; i < MAX_SAMPLES; i++)
+        for(Sample s : samples)
         {
-            for(int j = 0; j < INPUT_NEURONS; j++)
-            {
-                inputs[j] = trainInputs[i][j];
-            } // j
+//            for(int j = 0; j < INPUT_NEURONS; j++)
+//            {
+//                inputs[j] = trainInputs[i][j];
+//            } // j
+            inputs[0] = s.X1;
+            inputs[1] = s.X2;
 
             feedForward();
 
@@ -280,7 +333,9 @@ public class Network
             for(int hid = 0; hid < HIDDEN_NEURONS; hid++)
             {
                 // Assign a random weight value between -0.5 and 0.5
-                wih[inp][hid] = new Random().nextDouble() - 0.5;
+                wih[inp][hid] = new Random().nextDouble()*2 - 1;
+                //wih[inp][hid] = 1;
+
             } // hid
         } // inp
 
@@ -289,7 +344,8 @@ public class Network
             for(int out = 0; out < OUTPUT_NEURONS; out++)
             {
                 // Assign a random weight value between -0.5 and 0.5
-                who[hid][out] = new Random().nextDouble() - 0.5;
+                who[hid][out] = new Random().nextDouble()*2 - 1;
+                //who[hid][out] = 1;
             } // out
         } // hid
         return;
