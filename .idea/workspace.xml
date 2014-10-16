@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c85b0548-f08d-4b71-991c-a1e10e3c301c" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Plotter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BackPropNetwork.java" afterPath="$PROJECT_DIR$/src/BackPropNetwork.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/otherNet.java" afterPath="$PROJECT_DIR$/src/otherNet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="BackPropagation.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -56,8 +59,8 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties converted="true" />
     <breakpoint_rules converted="true" />
+    <ui_properties converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -68,38 +71,50 @@
       <file leaf-file-name="Network.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Network.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5085">
+            <state vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="5190">
               <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="otherNet.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="otherNet.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/otherNet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="975" max-vertical-offset="5070">
-              <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
-              <folding />
+            <state vertical-scroll-proportion="0.5140187" vertical-offset="90" max-vertical-offset="5925">
+              <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#2487#2495#0" expanded="true" />
+                <element signature="e#12785#12786#0" expanded="true" />
+                <element signature="e#12827#12828#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BackPropNetwork.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="BackPropNetwork.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BackPropNetwork.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53892213" vertical-offset="0" max-vertical-offset="5865">
-              <caret line="24" column="61" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3960" max-vertical-offset="5745">
+              <caret line="283" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="386" selection-end-column="1" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#2090#2098#0" expanded="true" />
-                <element signature="e#11172#11173#0" expanded="true" />
-                <element signature="e#11231#11232#0" expanded="true" />
-                <element signature="e#11287#11288#0" expanded="true" />
-                <element signature="e#11329#11330#0" expanded="true" />
-                <element signature="e#11420#11421#0" expanded="true" />
-                <element signature="e#11463#11464#0" expanded="true" />
+                <element signature="e#2194#2202#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Plotter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Plotter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
+              <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -139,9 +154,10 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/Sample.java" />
-        <option value="$PROJECT_DIR$/src/otherNet.java" />
         <option value="$PROJECT_DIR$/src/Network.java" />
+        <option value="$PROJECT_DIR$/src/Plotter.java" />
         <option value="$PROJECT_DIR$/src/BackPropNetwork.java" />
+        <option value="$PROJECT_DIR$/src/otherNet.java" />
       </list>
     </option>
   </component>
@@ -176,7 +192,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -225,7 +241,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -251,7 +267,7 @@
       <recent name="$PROJECT_DIR$/lib" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BackPropNetwork">
+  <component name="RunManager" selected="Application.otherNet">
     <configuration default="false" name="Network" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Network" />
       <option name="VM_PARAMETERS" />
@@ -335,19 +351,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -373,6 +376,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -436,8 +452,8 @@
     </list>
     <recent_temporary>
       <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Application.BackPropNetwork" />
-        <item index="1" class="java.lang.String" itemvalue="Application.otherNet" />
+        <item index="0" class="java.lang.String" itemvalue="Application.otherNet" />
+        <item index="1" class="java.lang.String" itemvalue="Application.BackPropNetwork" />
         <item index="2" class="java.lang.String" itemvalue="Application.Network" />
       </list>
     </recent_temporary>
@@ -447,6 +463,11 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SliceManager">
+    <option name="analysisUIOptions">
+      <AnalysisUIOptions />
+    </option>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="c85b0548-f08d-4b71-991c-a1e10e3c301c" name="Default" comment="" />
@@ -464,6 +485,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900944" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -476,10 +498,9 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11843712" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17924528" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17924528" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -511,6 +532,56 @@
     <entry file="file://$PROJECT_DIR$/src/Network.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5190">
+          <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/otherNet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="5310">
+          <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2487#2495#0" expanded="true" />
+            <element signature="e#12785#12786#0" expanded="true" />
+            <element signature="e#12827#12828#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BackPropNetwork.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="5865">
+          <caret line="24" column="61" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2194#2202#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Sample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="315">
+          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/TrainingData.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="12105">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Network.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5190">
           <caret line="61" column="60" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
           <folding />
         </state>
@@ -520,7 +591,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="5310">
           <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2487#2495#0" expanded="true" />
+            <element signature="e#12785#12786#0" expanded="true" />
+            <element signature="e#12827#12828#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -531,13 +608,7 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#2090#2098#0" expanded="true" />
-            <element signature="e#11172#11173#0" expanded="true" />
-            <element signature="e#11231#11232#0" expanded="true" />
-            <element signature="e#11287#11288#0" expanded="true" />
-            <element signature="e#11329#11330#0" expanded="true" />
-            <element signature="e#11420#11421#0" expanded="true" />
-            <element signature="e#11463#11464#0" expanded="true" />
+            <element signature="e#2194#2202#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -570,7 +641,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="5310">
           <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2487#2495#0" expanded="true" />
+            <element signature="e#12785#12786#0" expanded="true" />
+            <element signature="e#12827#12828#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -581,13 +658,7 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#2090#2098#0" expanded="true" />
-            <element signature="e#11172#11173#0" expanded="true" />
-            <element signature="e#11231#11232#0" expanded="true" />
-            <element signature="e#11287#11288#0" expanded="true" />
-            <element signature="e#11329#11330#0" expanded="true" />
-            <element signature="e#11420#11421#0" expanded="true" />
-            <element signature="e#11463#11464#0" expanded="true" />
+            <element signature="e#2194#2202#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -620,7 +691,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="5310">
           <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2487#2495#0" expanded="true" />
+            <element signature="e#12785#12786#0" expanded="true" />
+            <element signature="e#12827#12828#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -631,13 +708,7 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#2090#2098#0" expanded="true" />
-            <element signature="e#11172#11173#0" expanded="true" />
-            <element signature="e#11231#11232#0" expanded="true" />
-            <element signature="e#11287#11288#0" expanded="true" />
-            <element signature="e#11329#11330#0" expanded="true" />
-            <element signature="e#11420#11421#0" expanded="true" />
-            <element signature="e#11463#11464#0" expanded="true" />
+            <element signature="e#2194#2202#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -670,7 +741,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="5310">
           <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2487#2495#0" expanded="true" />
+            <element signature="e#12785#12786#0" expanded="true" />
+            <element signature="e#12827#12828#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -681,13 +758,7 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#2090#2098#0" expanded="true" />
-            <element signature="e#11172#11173#0" expanded="true" />
-            <element signature="e#11231#11232#0" expanded="true" />
-            <element signature="e#11287#11288#0" expanded="true" />
-            <element signature="e#11329#11330#0" expanded="true" />
-            <element signature="e#11420#11421#0" expanded="true" />
-            <element signature="e#11463#11464#0" expanded="true" />
+            <element signature="e#2194#2202#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -720,7 +791,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="5310">
           <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2487#2495#0" expanded="true" />
+            <element signature="e#12785#12786#0" expanded="true" />
+            <element signature="e#12827#12828#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -731,13 +808,7 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#2090#2098#0" expanded="true" />
-            <element signature="e#11172#11173#0" expanded="true" />
-            <element signature="e#11231#11232#0" expanded="true" />
-            <element signature="e#11287#11288#0" expanded="true" />
-            <element signature="e#11329#11330#0" expanded="true" />
-            <element signature="e#11420#11421#0" expanded="true" />
-            <element signature="e#11463#11464#0" expanded="true" />
+            <element signature="e#2194#2202#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -770,7 +841,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="4695">
           <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2487#2495#0" expanded="true" />
+            <element signature="e#12785#12786#0" expanded="true" />
+            <element signature="e#12827#12828#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -869,14 +946,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/otherNet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="5310">
-          <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/TrainingData.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12105">
@@ -887,18 +956,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BackPropNetwork.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53892213" vertical-offset="0" max-vertical-offset="5865">
-          <caret line="24" column="61" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3960" max-vertical-offset="5745">
+          <caret line="283" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="386" selection-end-column="1" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#2090#2098#0" expanded="true" />
-            <element signature="e#11172#11173#0" expanded="true" />
-            <element signature="e#11231#11232#0" expanded="true" />
-            <element signature="e#11287#11288#0" expanded="true" />
-            <element signature="e#11329#11330#0" expanded="true" />
-            <element signature="e#11420#11421#0" expanded="true" />
-            <element signature="e#11463#11464#0" expanded="true" />
+            <element signature="e#2194#2202#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Plotter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
+          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/otherNet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5140187" vertical-offset="90" max-vertical-offset="5925">
+          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2487#2495#0" expanded="true" />
+            <element signature="e#12785#12786#0" expanded="true" />
+            <element signature="e#12827#12828#0" expanded="true" />
           </folding>
         </state>
       </provider>

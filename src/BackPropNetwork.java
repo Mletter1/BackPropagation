@@ -14,28 +14,29 @@ public class BackPropNetwork
 {
 
     private final int INPUT_NEURONS = 2;
-    private final int HIDDEN_NEURONS = 2;
+    public int numberOfHiddenNeuronsPerLayer = 2;
+    public int numebrOfHiddenLayers =1;
     private final int OUTPUT_NEURONS = 4;
 
-    private final double LEARN_RATE = 0.02;    // Rho.
-    private final double NOISE_FACTOR = 0.2;
-    private final int TRAINING_REPS = 100;
+    public double lRate = 0.02;    // Rho.
+    public double noise = 0.2;
+    public int epoches = 100;
 
     // Input to Hidden Weights (with Biases).
-    private double wih[][] = new double[INPUT_NEURONS + 1][HIDDEN_NEURONS];
+    private double inputToHiddenWeights[][] = new double[INPUT_NEURONS + 1][numberOfHiddenNeuronsPerLayer];
 
     // Hidden to Output Weights (with Biases).
-    private double who[][] = new double[HIDDEN_NEURONS + 1][OUTPUT_NEURONS];
+    private double hiddenToOutputWeights[][] = new double[numberOfHiddenNeuronsPerLayer + 1][OUTPUT_NEURONS];
 
     // Activations.
     private double inputs[] = new double[INPUT_NEURONS];
-    private double hidden[] = new double[HIDDEN_NEURONS];
+    private double hidden[] = new double[numberOfHiddenNeuronsPerLayer];
     private double target[] = new double[OUTPUT_NEURONS];
     private double actual[] = new double[OUTPUT_NEURONS];
 
     // Unit errors.
     private double erro[] = new double[OUTPUT_NEURONS];
-    private double errh[] = new double[HIDDEN_NEURONS];
+    private double errh[] = new double[numberOfHiddenNeuronsPerLayer];
 
     private final int MAX_SAMPLES = 800;
 
@@ -135,7 +136,7 @@ public class BackPropNetwork
         double time = System.currentTimeMillis();
 
         // Train the network.
-        for(int epoch = 0; epoch < TRAINING_REPS; epoch++)
+        for(int epoch = 0; epoch < epoches; epoch++)
         {
             Collections.shuffle(samples);
             for(Sample s : samples) {
@@ -151,7 +152,7 @@ public class BackPropNetwork
             }
         } // epoch
 
-        System.out.println("\nfinished testing "+TRAINING_REPS+ " epochs in "+((System.currentTimeMillis() - time)
+        System.out.println("\nfinished testing "+ epoches + " epochs in "+((System.currentTimeMillis() - time)
                 /1000)+" seconds");
         System.out.println("\nafter training");
         System.out.println("Network test error is " + getTrainingStats(test) + "% correct.");
@@ -232,7 +233,7 @@ public class BackPropNetwork
         {
             for(int j = 0; j < INPUT_NEURONS; j++)
             {
-                inputs[j] = trainInputs[i][j] + (new Random().nextDouble() * NOISE_FACTOR);
+                inputs[j] = trainInputs[i][j] + (new Random().nextDouble() * noise);
             } // j
 
             feedForward();
@@ -273,15 +274,15 @@ public class BackPropNetwork
         double sum = 0.0;
 
         // Calculate input to hidden layer.
-        for(int hid = 0; hid < HIDDEN_NEURONS; hid++)
+        for(int hid = 0; hid < numberOfHiddenNeuronsPerLayer; hid++)
         {
             sum = 0.0;
             for(int inp = 0; inp < INPUT_NEURONS; inp++)
             {
-                sum += inputs[inp] * wih[inp][hid];
+                sum += inputs[inp] * inputToHiddenWeights[inp][hid];
             } // inp
 
-            sum += wih[INPUT_NEURONS][hid]; // Add in bias.
+            sum += inputToHiddenWeights[INPUT_NEURONS][hid]; // Add in bias.
             hidden[hid] = sigmoid(sum);
         } // hid
 
@@ -289,12 +290,12 @@ public class BackPropNetwork
         for(int out = 0; out < OUTPUT_NEURONS; out++)
         {
             sum = 0.0;
-            for(int hid = 0; hid < HIDDEN_NEURONS; hid++)
+            for(int hid = 0; hid < numberOfHiddenNeuronsPerLayer; hid++)
             {
-                sum += hidden[hid] * who[hid][out];
+                sum += hidden[hid] * hiddenToOutputWeights[hid][out];
             } // hid
 
-            sum += who[HIDDEN_NEURONS][out]; // Add in bias.
+            sum += hiddenToOutputWeights[numberOfHiddenNeuronsPerLayer][out]; // Add in bias.
             actual[out] = sigmoid(sum);
         } // out
         return;
@@ -309,12 +310,12 @@ public class BackPropNetwork
         }
 
         // Calculate the hidden layer error (step 3 for hidden cell).
-        for(int hid = 0; hid < HIDDEN_NEURONS; hid++)
+        for(int hid = 0; hid < numberOfHiddenNeuronsPerLayer; hid++)
         {
             errh[hid] = 0.0;
             for(int out = 0; out < OUTPUT_NEURONS; out++)
             {
-                errh[hid] += erro[out] * who[hid][out];
+                errh[hid] += erro[out] * hiddenToOutputWeights[hid][out];
             }
             errh[hid] *= sigmoidDerivative(hidden[hid]);
         }
@@ -322,21 +323,21 @@ public class BackPropNetwork
         // Update the weights for the output layer (step 4).
         for(int out = 0; out < OUTPUT_NEURONS; out++)
         {
-            for(int hid = 0; hid < HIDDEN_NEURONS; hid++)
+            for(int hid = 0; hid < numberOfHiddenNeuronsPerLayer; hid++)
             {
-                who[hid][out] += (LEARN_RATE * erro[out] * hidden[hid]);
+                hiddenToOutputWeights[hid][out] += (lRate * erro[out] * hidden[hid]);
             } // hid
-            who[HIDDEN_NEURONS][out] += (LEARN_RATE * erro[out]); // Update the bias.
+            hiddenToOutputWeights[numberOfHiddenNeuronsPerLayer][out] += (lRate * erro[out]); // Update the bias.
         } // out
 
         // Update the weights for the hidden layer (step 4).
-        for(int hid = 0; hid < HIDDEN_NEURONS; hid++)
+        for(int hid = 0; hid < numberOfHiddenNeuronsPerLayer; hid++)
         {
             for(int inp = 0; inp < INPUT_NEURONS; inp++)
             {
-                wih[inp][hid] += (LEARN_RATE * errh[hid] * inputs[inp]);
+                inputToHiddenWeights[inp][hid] += (lRate * errh[hid] * inputs[inp]);
             } // inp
-            wih[INPUT_NEURONS][hid] += (LEARN_RATE * errh[hid]); // Update the bias.
+            inputToHiddenWeights[INPUT_NEURONS][hid] += (lRate * errh[hid]); // Update the bias.
         } // hid
         return;
     }
@@ -345,22 +346,22 @@ public class BackPropNetwork
     {
         for(int inp = 0; inp <= INPUT_NEURONS; inp++) // Do not subtract 1 here.
         {
-            for(int hid = 0; hid < HIDDEN_NEURONS; hid++)
+            for(int hid = 0; hid < numberOfHiddenNeuronsPerLayer; hid++)
             {
                 // Assign a random weight value between -0.5 and 0.5
-                wih[inp][hid] = new Random().nextDouble()*2 - 1;
-                //wih[inp][hid] = 1;
+                inputToHiddenWeights[inp][hid] = new Random().nextDouble()*2 - 1;
+                //inputToHiddenWeights[inp][hid] = 1;
 
             } // hid
         } // inp
 
-        for(int hid = 0; hid <= HIDDEN_NEURONS; hid++) // Do not subtract 1 here.
+        for(int hid = 0; hid <= numberOfHiddenNeuronsPerLayer; hid++) // Do not subtract 1 here.
         {
             for(int out = 0; out < OUTPUT_NEURONS; out++)
             {
                 // Assign a random weight value between -0.5 and 0.5
-                who[hid][out] = new Random().nextDouble()*2 - 1;
-                //who[hid][out] = 1;
+                hiddenToOutputWeights[hid][out] = new Random().nextDouble()*2 - 1;
+                //hiddenToOutputWeights[hid][out] = 1;
             } // out
         } // hid
         return;
