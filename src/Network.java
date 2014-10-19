@@ -118,7 +118,7 @@ public class Network
     {
         double sum = 0.0;
 
-        // Calculate input to hidden layer.
+        // Calculate input to nodeOutputs layer.
         for(int hid = 0; hid < HIDDEN_NEURONS; hid++)
         {
             sum = 0.0;
@@ -131,17 +131,17 @@ public class Network
 
             //sum += wih[INPUT_NEURONS][hid]; // Add in bias.
             hidden[hid] = sum;
-//            hidden[hid] = sigmoid(sum);
+//            nodeOutputs[hid] = sigmoid(sum);
 
         } // hid
 
-        // Calculate the hidden to output layer.
+        // Calculate the nodeOutputs to output layer.
         for(int out = 0; out < OUTPUT_NEURONS; out++)
         {
             sum = 0.0;
             for(int hid = 0; hid < HIDDEN_NEURONS; hid++)
             {
-                //System.out.println("weight out ="+ wih[hid][out]+" times:"+hidden[hid]);
+                //System.out.println("weight out ="+ wih[hid][out]+" times:"+nodeOutputs[hid]);
                 sum += hidden[hid] * who[hid][out];
                 //System.out.println("sum ="+ sum);
             } // hid
@@ -149,7 +149,7 @@ public class Network
             sum += who[HIDDEN_NEURONS][out]; // Add in bias.
             actual[out] = sum;
 //            actual[out] = sigmoid(sum);
-            //System.out.println("calculated hidden to out ="+ actual[out]);
+            //System.out.println("calculated nodeOutputs to out ="+ actual[out]);
             System.out.println("calculated actual ="+sum);
         } // out
         return;
@@ -165,7 +165,7 @@ public class Network
 
         }
 
-        // Calculate the hidden layer error (step 3 for hidden cell).
+        // Calculate the nodeOutputs layer error (step 3 for nodeOutputs cell).
         for(int hid = 0; hid < HIDDEN_NEURONS; hid++)
         {
             errh[hid] = 0.0;
@@ -174,7 +174,7 @@ public class Network
                 errh[hid] += erro[out] * who[hid][out];
                 System.out.println("calculated in to errorH ="+errh[hid]);
             }
-            //errh[hid] *= sigmoidDerivative(hidden[hid]);
+            //err[hid] *= sigmoidDerivative(nodeOutputs[hid]);
         }
 
         // Update the weights for the output layer (step 4).
@@ -187,7 +187,7 @@ public class Network
             who[HIDDEN_NEURONS][out] += (LEARN_RATE * erro[out]); // Update the bias.
         } // out
 
-        // Update the weights for the hidden layer (step 4).
+        // Update the weights for the nodeOutputs layer (step 4).
         for(int hid = 0; hid < HIDDEN_NEURONS; hid++)
         {
             for(int inp = 0; inp < INPUT_NEURONS; inp++)

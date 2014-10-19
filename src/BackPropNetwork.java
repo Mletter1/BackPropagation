@@ -102,7 +102,7 @@ public class BackPropNetwork
     {
         double sum = 0.0;
 
-        // Calculate input to hidden layer.
+        // Calculate input to nodeOutputs layer.
         for(int hid = 0; hid < numberOfHiddenLayers; hid++)
         {
             sum = 0.0;
@@ -115,7 +115,7 @@ public class BackPropNetwork
             hidden[hid] = sigmoid(sum);
         } // hid
 
-        // Calculate the hidden to output layer.
+        // Calculate the nodeOutputs to output layer.
         for(int out = 0; out < OUTPUT_NEURONS; out++)
         {
             sum = 0.0;
@@ -138,7 +138,7 @@ public class BackPropNetwork
             erro[out] = (target[out] - actual[out]) * sigmoidDerivative(actual[out]);
         }
 
-        // Calculate the hidden layer error (step 3 for hidden cell).
+        // Calculate the nodeOutputs layer error (step 3 for nodeOutputs cell).
         for(int hid = 0; hid < numberOfHiddenLayers; hid++)
         {
             errh[hid] = 0.0;
@@ -159,7 +159,7 @@ public class BackPropNetwork
             hiddenToOutputWeights[numberOfHiddenLayers][out] += (lRate * erro[out]); // Update the bias.
         } // out
 
-        // Update the weights for the hidden layer (step 4).
+        // Update the weights for the nodeOutputs layer (step 4).
         for(int hid = 0; hid < numberOfHiddenLayers; hid++)
         {
             for(int inp = 0; inp < INPUT_NEURONS; inp++)
