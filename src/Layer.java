@@ -40,8 +40,8 @@ public class Layer {
         {
             for (int nodeNum = 0; nodeNum < NUMBER_OF_NEURONS; nodeNum++) {
                 // Assign a random weight value between -0.5 and 0.5
-                inputToSelf[inp][nodeNum] = new Random().nextDouble() * 1 - .5;
-                //inputToHiddenWeights[inp][hid] = 1;
+                //inputToSelf[inp][nodeNum] = new Random().nextDouble() * 1 - .5;
+                inputToSelf[inp][nodeNum] = 1;
 
             }
         }

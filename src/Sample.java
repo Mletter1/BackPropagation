@@ -12,4 +12,8 @@ public class Sample {
         this.expectedClass=expectedClass;
         this.index=index;
     }
+    Sample(double X1, double X2 ){
+        this.X1=X1;
+        this.X2=X2;
+    }
 }

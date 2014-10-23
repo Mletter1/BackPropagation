@@ -11,11 +11,13 @@ import java.util.Scanner;
 public class NeuralNet
 {
     private final int INPUT_NEURONS = 2;
-    private final int NUMBER_OF_HIDDEN_LAYERS = 4;//TODO fix layers >4
+    private final int NUMBER_OF_HIDDEN_LAYERS = 1;
+    private final int HIDDEN_NEURONS = 10;
     private final int OUTPUT_NEURONS = 4;
-    private final double LEARNING_RATE = 0.02;    // Rho.
-    private final int EPOCHES = 10;
-    private final double SAMPLES = 800;
+    private final double LEARNING_RATE = 0.01;    // Rho.
+    private final int EPOCHES = 2000;
+    private final int SAMPLES = 800;
+    public ArrayList<Sample> matrix;
 
     public ArrayList<Layer> Layers = new ArrayList<Layer>();
     private double inputSampleValues[] = new double[INPUT_NEURONS];
@@ -26,33 +28,45 @@ public class NeuralNet
                     {0, 1, 0, 0},
                     {0, 0, 1, 0},
                     {0, 0, 0, 1}};
-
     /**
      * entrypoint for network tests, sets up the network and starts running EPOCHES;
      */
     private void nNet()
     {
+        buildMatrix();
         int sample = 0;
         //class 1
         File f1 = new File("/Users/matthewletter/Documents/BackPropagation/data/TrainingData.txt");
         ArrayList<Sample> samples = parseFile(f1);
         printMinMaxOfData(samples);
+        //plotFile(f1);
+
 
         File f2 = new File("/Users/matthewletter/Documents/BackPropagation/data/TestingData.txt");
         ArrayList<Sample> test = parseFile(f2);
         printMinMaxOfData(test);
         buildLayers();
+        //plotFile(f2);
+        //buildColors(matrix);
 
         System.out.println("\nbefore training");
         System.out.println("Network test is " + getRunStats(test) + "% correct.");
-
+        double[] sumold = new double[10];
+        double[] sumnew = new double[10];
         double time = System.currentTimeMillis();
-
+        int count =0;
+        double oldError = 10.0;
+        double olderError = 5.0;
+        double change = 0.0;
+        int num = 1;
         // Train the network.
-        for(int epoch = 0; epoch < EPOCHES; epoch++)
-        {
+        double[] x1 = new double[EPOCHES];
+        double[] x2 = new double[EPOCHES];
+        double[] y = new double[EPOCHES];
+        int index = 0;
+        for(int epoch = 0; epoch < EPOCHES; epoch++) {
             Collections.shuffle(samples);
-            for(Sample s : samples) {
+            for (Sample s : samples) {
                 inputSampleValues[0] = s.X1;
                 inputSampleValues[1] = s.X2;
                 sample = s.expectedClass;
@@ -61,21 +75,207 @@ public class NeuralNet
                     expected[i] = classOutput[sample][i];
                 }
                 feedForward();
+
                 backPropagation();
             }
-            //System.out.println("Network test is " + getRunStats(test) + "% correct.");
+            //System.out.println("error:" + getErrorStats(test) + "");
+            x1[count] = getErrorStats(samples);
+            x2[count] = getErrorStats(test);
+            sumnew[index]= x2[count];
+
+
+
+            if(num%10==9){
+                index = 0;
+
+            }
+            if(num%10==9 && count > 2000){
+                olderError = 0;
+                oldError = 0;
+                for (int i = 0; i < sumnew.length; i++) {
+                    oldError += sumnew[i];
+                    olderError += sumold[i];
+                }
+                change = (oldError-olderError)*(oldError-olderError);
+                System.out.println("old"+oldError+" older:" + olderError);
+                if (change < .0000001) {
+                    break;
+                }
+            }
+            if(num%10==9 && count > 20){
+                for (int i = 0; i < sumnew.length; i++) {
+                    sumold[i]=sumnew[i];
+                }
+            }
+            num++;
+            count++;
         } // epoch
+        for (int i = 0; i < EPOCHES; i++) {
+            y[i] = i;
+        }
+
+        System.out.println("ended at epoche: "+count);
+        Plotter.generalize(x1,x2,y);
 
         System.out.println("\nfinished testing "+ EPOCHES + " epochs in "+((System.currentTimeMillis() - time)
                 /1000)+" seconds");
         System.out.println("\nafter training");
         System.out.println("Network test is " + getRunStats(test) + "% correct.");
+        buildColors(matrix);
 
         //System.out.println("\nTest network against original input:");
         //testNetworkTraining(samples);
 
         //System.out.println("\nTest network against noisy input:");
         //testNetworkWithNoise1();
+    }
+    /**
+     * produce stats for a training epoche
+     * @param samples input samples
+     * @return
+     */
+    private double getErrorStats(ArrayList<Sample> samples)
+    {
+        double sum = 0.0;
+        double act = 0.0;
+        double expc = 0.0;
+        for(Sample s : samples)
+        {
+
+            inputSampleValues[0] = s.X1;
+            inputSampleValues[1] = s.X2;
+            int sample = s.expectedClass;
+            for(int j = 0; j < OUTPUT_NEURONS; j++)
+            {
+                expected[j] = classOutput[sample][j];
+            }
+            feedForward();
+            if(max(Layers.get(Layers.size() - 1).nodeOutputs) != max(expected)){
+                expc = max(expected) + 1;
+                act = max(Layers.get(Layers.size() - 1).nodeOutputs) + 1;
+                sum += (expc-act)*(expc-act);
+            }
+
+        }
+
+        return Math.sqrt((sum / (SAMPLES*4)));
+    }
+    /**
+     * produce stats for a training epoche
+     * @param samples input samples
+     * @return
+     */
+    private void buildColors(ArrayList<Sample> samples)
+    {   Plotter p = new Plotter();
+        double[] redx;
+        double[] bluex;
+        double[] greenx;
+        double[] magentax;
+        double[] redy;
+        double[] bluey;
+        double[] greeny;
+        double[] magentay;
+        int countr0=0;
+        int countb0=0;
+        int countg0=0;
+        int countm0=0;
+        int color = 0;
+        double sum = 0.0;
+        double act = 0.0;
+        double expc = 0.0;
+        for(Sample s : samples)
+        {
+            inputSampleValues[0] = s.X1;
+            inputSampleValues[1] = s.X2;
+            feedForward();
+            color = max(Layers.get(Layers.size() - 1).nodeOutputs);
+            try {
+                switch (color) {
+                    case 0: countr0++;
+                        break;
+                    case 1: countb0++;
+                        break;
+                    case 2: countg0++;
+                        break;
+                    case 3: countm0++;
+                        break;
+                    default:
+                        throw new Exception("wtf");
+
+                }
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        redx = new double[countr0];
+        bluex = new double[countb0];
+        greenx = new double[countg0];
+        magentax = new double[countm0];
+        redy = new double[countr0];
+        bluey = new double[countb0];
+        greeny = new double[countg0];
+        magentay = new double[countm0];
+        countr0=0;
+        countb0=0;
+        countg0=0;
+        countm0=0;
+
+        for(Sample s : samples)
+        {
+            inputSampleValues[0] = s.X1;
+            inputSampleValues[1] = s.X2;
+            feedForward();
+            color = max(Layers.get(Layers.size() - 1).nodeOutputs);
+            try {
+                switch (color) {
+                    case 0:
+                        redx[countr0] = s.X1;
+                        redy[countr0] = s.X2;
+                        countr0++;
+                        break;
+                    case 1:
+                        bluex[countb0] = s.X1;
+                        bluey[countb0] = s.X2;
+                        countb0++;
+                        break;
+                    case 2:
+                        greenx[countg0] = s.X1;
+                        greeny[countg0] = s.X2;
+                        countg0++;
+                        break;
+                    case 3:
+                        magentax[countm0] = s.X1;
+                        magentay[countm0] = s.X2;
+                        countm0++;
+                        break;
+                    default:
+                        throw new Exception("wtf");
+
+                }
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        p.regions(redx,bluex,greenx,magentax,redy,bluey,greeny,magentay);
+    }
+    public void buildMatrix(){
+        //-.3 - 1.65 -.02
+        int x=0;
+        int y=0;
+
+        matrix = new ArrayList<Sample>();
+        for (double i = -1; i <2 ; i+=.004) {
+            y=0;
+            for (double j = -1; j <2 ; j+=.004) {
+                y++;
+                matrix.add(new Sample(i,j));
+            }
+            x++;
+        }
+        System.out.println();
+
     }
 
     /**
@@ -84,12 +284,11 @@ public class NeuralNet
     private void buildLayers() {
         int previousLayerSize = INPUT_NEURONS;
         for (int i = 0; i < NUMBER_OF_HIDDEN_LAYERS; i++) {//add nodeOutputs layers
-                Layers.add(new Layer(previousLayerSize,5));
-            previousLayerSize = 5;
+                Layers.add(new Layer(previousLayerSize,HIDDEN_NEURONS));
+            previousLayerSize = HIDDEN_NEURONS;
         }
         Layers.add(new Layer(previousLayerSize,4));
     }
-
 
     /**
      * feedforward implementation of the network
@@ -133,16 +332,12 @@ public class NeuralNet
      */
     private void backPropagation()
     {
+
         // Calculate the output layer error
         for(int out = 0; out < Layers.get(Layers.size()-1).NUMBER_OF_NEURONS; out++)
         {
             Layers.get(Layers.size()-1).err[out] = (expected[out] - Layers.get(Layers.size()-1).nodeOutputs[out]) *
                     sigmoidDerivative(Layers.get(Layers.size()-1).nodeOutputs[out]);
-            if((-1*(expected[out] - Layers.get(Layers.size()-1).nodeOutputs[out])) < .01){
-                System.out.println(Layers.get(Layers.size()-1).err[out]);
-            }else{
-                System.out.println("good error:"+Layers.get(Layers.size()-1).err[out]);
-            }
         }
         // Update the weights for the output layer.
         for(int out = 0; out < Layers.get(Layers.size()-1).NUMBER_OF_NEURONS; out++)
@@ -228,6 +423,69 @@ public class NeuralNet
             e.printStackTrace();
         }
         return samples;
+    }
+    /**
+     * used to parse the provided text files
+     * @param f file
+     * @return ArrayList of Sample
+     */
+    public void plotFile(File f){
+        Scanner scanner;
+        String[] sA;
+        String s;
+        Plotter p = new Plotter();
+        int count = 0;
+        int index=0;
+        double[] redx = new double[200];
+        double[] bluex = new double[200];
+        double[] greenx = new double[200];
+        double[] magentax = new double[200];
+        double[] redy = new double[200];
+        double[] bluey = new double[200];
+        double[] greeny = new double[200];
+        double[] magentay = new double[200];
+        ArrayList<Sample> samples = new ArrayList<Sample>();
+        try {
+            scanner = new Scanner(f);
+            s = scanner.nextLine();
+            s = s.replaceAll("\\s+"," ");
+            //System.out.println(s);
+
+            while(scanner.hasNext()){
+                s = s.replaceAll("\\s+"," ");
+                sA = s.split(" ");
+                if(index==200){
+                    index=0;
+                }
+                if(sA.length==4) {
+                    if(count<200) {
+                        redx[index] = Double.parseDouble(sA[2]);
+                        redy[index] = Double.parseDouble(sA[3]);
+                    }
+                    else if(count<400) {
+                        bluex[index] = Double.parseDouble(sA[2]);
+                        bluey[index] = Double.parseDouble(sA[3]);
+                    }
+                    else if(count<600) {
+                        greenx[index] = Double.parseDouble(sA[2]);
+                        greeny[index] = Double.parseDouble(sA[3]);
+                    }
+                    else if(count<800) {
+                        magentax[index] = Double.parseDouble(sA[2]);
+                        magentay[index] = Double.parseDouble(sA[3]);
+                    }
+                }
+
+                s = scanner.nextLine();
+                count++;
+                index++;
+            }
+            scanner.close();
+
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+        p.regions(redx,bluex,greenx,magentax,redy,bluey,greeny,magentay);
     }
 
     /**
